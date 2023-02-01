@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+        web_server:
+                platform: "linux/amd64"
+                build:
+                        dockerfile: Dockerfile-webserver
+                env_file:
+                        - variables.env
+                ports:
+                        - target: 80
+                          published: 8080
+                          protocol: tcp
+                          mode: host
+                volumes:
+                        - ./application/:/application/
+                        - ./webserver-setup/:/setup/
+                entrypoint: [ "sh", "/setup/bootstrap.sh" ]
