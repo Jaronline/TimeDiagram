@@ -19,7 +19,7 @@ $hertzInputHTML = createNumberInputHTML("hertz", "hertz", 1, null, $hertz);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tijddiagram</title>
+    <title>Time Diagram</title>
     <link rel="stylesheet" href="css/style.css">
     <script defer src="js/script.js"></script>
 </head>
@@ -27,19 +27,19 @@ $hertzInputHTML = createNumberInputHTML("hertz", "hertz", 1, null, $hertz);
     <div class="mb-2">
         <canvas class="block"></canvas>
         <?=$backgroundInputHTML?>
-        <label for="background">Achtergrond wit maken</label>
-        <button id="download" type="button">Opslaan</button>
+        <label for="background">Add white background</label>
+        <button id="download" type="button">Save</button>
     </div>
     <div class="mb-2">
-        <label for="ratio">Schaal 1:</label>
+        <label for="ratio">Scale 1:</label>
         <?=$ratioInputHTML?>
         <?=$totalInputHTML?>
-        <label for="total-enabled">Laat totale tijd zien</label>
+        <label for="total-enabled">Show total time</label>
     </div>
     <div>
-        <label for="duration">Totale tijd (s)</label>
+        <label for="duration">Total time (s)</label>
         <?=$durationInputHTML?>
-        <label for="hertz">Aantal hertz</label>
+        <label for="hertz">Amount of hertz</label>
         <?=$hertzInputHTML?>
     </div>
 </body>
