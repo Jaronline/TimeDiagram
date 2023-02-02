@@ -9,6 +9,8 @@
 	const durationInput = document.getElementById("duration");
 	/** @type {HTMLInputElement} */
 	const hertzInput = document.getElementById("hertz");
+	/** @type {HTMLInputElement} */
+	const voltageEnabledInput = document.getElementById("voltage-enabled");
 	const canvas = document.querySelector("canvas");
 	const ctx = canvas.getContext("2d");
 	ctx.strokeStyle = "#000";
@@ -91,12 +93,19 @@
 		ctx.fillStyle = "#000";
 		const lineLength = lengthPerCycle;
 		canvas.width = lineLength * cycles * 2;
-		for (let i = 0; i < cycles; i++) {
-	    		drawCycle(ctx, canvas.height - 55, lineLength, lineLength * 2 * i);
+		let offsetX = 0;
+		if (voltageEnabledInput.checked) {
+			offsetX = 20;
+			canvas.width += offsetX;
+			ctx.fillText("5V", 0, 9);
+			ctx.fillText("0V", 0, canvas.height - 55);
 		}
-		drawArrow(ctx, 0, canvas.height - 45, lineLength * 2, canvas.height - 35, interval + " sec");
+		for (let i = 0; i < cycles; i++) {
+	    		drawCycle(ctx, canvas.height - 55, lineLength, lineLength * 2 * i + offsetX);
+		}
+		drawArrow(ctx, offsetX, canvas.height - 45, lineLength * 2 + offsetX, canvas.height - 35, interval + " sec");
 		if (totalEnabledInput.checked && cycles > 1) {
-	    		drawArrow(ctx, 0, canvas.height - 20, canvas.width, canvas.height - 10, durationInput.value + " sec");
+	    		drawArrow(ctx, offsetX, canvas.height - 20, canvas.width, canvas.height - 10, durationInput.value + " sec");
 		}
 		const data = canvas.toDataURL();
 		canvas.width += 20;
@@ -123,6 +132,9 @@
 		}
 		urlParams.append("d", durationInput.value);
 		urlParams.append("h", hertzInput.value);
+		if (voltageEnabledInput.checked) {
+			urlParams.append("v", "");
+		}
 		return urlParams
 			.toString()
 			.replaceAll("=&", "&")
@@ -151,6 +163,7 @@
 	totalEnabledInput.addEventListener("change", update);
 	durationInput.addEventListener("input", update);
 	hertzInput.addEventListener("input", update);
+	voltageEnabledInput.addEventListener("change", update);
 
 	document.getElementById("download").addEventListener("click", () => {
 		const link = document.createElement("a");
